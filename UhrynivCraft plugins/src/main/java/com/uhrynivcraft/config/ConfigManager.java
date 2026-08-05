@@ -51,8 +51,10 @@ public class ConfigManager {
         hourTiers.clear();
         List<Map<?, ?>> rawTiers = config.getMapList("antifarm.limits");
         for (Map<?, ?> raw : rawTiers) {
-            double upTo = ((Number) raw.getOrDefault("up-to", -1)).doubleValue();
-            double mult = ((Number) raw.getOrDefault("multiplier", 1.0)).doubleValue();
+            Object upToObj = raw.get("up-to");
+            Object multObj = raw.get("multiplier");
+            double upTo = (upToObj instanceof Number) ? ((Number) upToObj).doubleValue() : -1;
+            double mult = (multObj instanceof Number) ? ((Number) multObj).doubleValue() : 1.0;
             hourTiers.add(new HourTier(upTo, mult));
         }
         // Ensure sorted ascending, with -1 (infinite) always last
