@@ -1,0 +1,218 @@
+# =====================================================
+#                  UhrynivCraft config
+# =====================================================
+
+mysql:
+  host: "localhost"
+  port: 3306
+  database: "uhrynivcraft"
+  username: "root"
+  password: "password"
+  useSSL: false
+  pool:
+    maximum-pool-size: 10
+    minimum-idle: 2
+    connection-timeout-ms: 10000
+    idle-timeout-ms: 600000
+    max-lifetime-ms: 1800000
+
+economy:
+  currency-name: "Uhryniv Points"
+  currency-symbol: "UP"
+  # How often (in seconds) the in-memory balance cache is flushed to MySQL
+  save-interval-seconds: 60
+  starting-balance: 0.0
+
+# =====================================================
+# ANTI-FARM
+# =====================================================
+antifarm:
+  # Hourly earning tiers. The reward multiplier applied depends on how much
+  # UP the player has already earned within the rolling current hour.
+  # Each entry: up-to (exclusive upper bound, -1 = infinite) : multiplier
+  limits:
+    - up-to: 500
+      multiplier: 1.0
+    - up-to: 1000
+      multiplier: 0.5
+    - up-to: 2000
+      multiplier: 0.2
+    - up-to: -1
+      multiplier: 0.05
+
+  mining-speed:
+    # Max blocks broken per second before we start suspending rewards (autoclicker/macro detection)
+    max-blocks-per-second: 8
+    # If exceeded, reward multiplier for that break
+    over-speed-multiplier: 0.0
+    # If a player breaks the same block type this many times in a row without
+    # breaking any other type, the multiplier starts decaying
+    same-block-streak-threshold: 40
+    # Multiplier decays by this amount per block past the threshold, down to the floor
+    same-block-decay-per-block: 0.02
+    same-block-multiplier-floor: 0.1
+
+  placed-blocks:
+    # Blocks placed by a player and later broken by them give 0 reward
+    # (prevents cobblestone/sand/bamboo generator farms)
+    enabled: true
+
+  afk:
+    # Player is considered AFK-farming if their position barely changes
+    # for this many seconds while still generating rewardable actions
+    still-seconds-threshold: 20
+    # Max horizontal+vertical movement (blocks) still counted as "not moved"
+    movement-tolerance: 0.35
+    afk-multiplier: 0.0
+
+  mobs:
+    natural-multiplier: 1.0
+    spawner-multiplier: 0.2
+    spawn-egg-multiplier: 0.0
+    other-multiplier: 0.0
+
+# =====================================================
+# REWARDS
+# =====================================================
+rewards:
+  blocks:
+    STONE: 0.001
+    COBBLESTONE: 0.001
+    COAL_ORE: 0.01
+    DEEPSLATE_COAL_ORE: 0.01
+    IRON_ORE: 0.03
+    DEEPSLATE_IRON_ORE: 0.03
+    COPPER_ORE: 0.015
+    DEEPSLATE_COPPER_ORE: 0.015
+    GOLD_ORE: 0.05
+    DEEPSLATE_GOLD_ORE: 0.05
+    REDSTONE_ORE: 0.04
+    DEEPSLATE_REDSTONE_ORE: 0.04
+    LAPIS_ORE: 0.05
+    DEEPSLATE_LAPIS_ORE: 0.05
+    DIAMOND_ORE: 0.2
+    DEEPSLATE_DIAMOND_ORE: 0.2
+    EMERALD_ORE: 0.3
+    DEEPSLATE_EMERALD_ORE: 0.3
+    ANCIENT_DEBRIS: 1.0
+
+  logs:
+    OAK_LOG: 0.003
+    BIRCH_LOG: 0.003
+    SPRUCE_LOG: 0.004
+    DARK_OAK_LOG: 0.005
+    JUNGLE_LOG: 0.004
+    ACACIA_LOG: 0.004
+    MANGROVE_LOG: 0.004
+    CHERRY_LOG: 0.004
+
+  crops:
+    WHEAT: 0.005
+    CARROT: 0.003
+    POTATO: 0.003
+    BEETROOT: 0.004
+    MELON: 0.01
+    PUMPKIN: 0.01
+    NETHER_WART: 0.02
+
+  fish:
+    COD: 0.01
+    SALMON: 0.015
+    PUFFERFISH: 0.05
+    TROPICAL_FISH: 0.05
+
+  mobs:
+    ZOMBIE: 0.02
+    SKELETON: 0.03
+    SPIDER: 0.02
+    CREEPER: 0.05
+    ENDERMAN: 0.2
+    BLAZE: 0.1
+    WITHER: 20.0
+    ENDER_DRAGON: 100.0
+
+# =====================================================
+# SHOP
+# =====================================================
+shop:
+  categories:
+    BLOCKS:
+      display-name: "&aБлоки"
+      icon: GRASS_BLOCK
+      items:
+        - material: DIAMOND_BLOCK
+          name: "&bБлок алмазу"
+          price: 400
+          amount: 1
+    ORES:
+      display-name: "&3Руди"
+      icon: DIAMOND_ORE
+      items:
+        - material: DIAMOND
+          name: "&bАлмаз"
+          price: 50
+          amount: 1
+        - material: EMERALD
+          name: "&2Смарагд"
+          price: 60
+          amount: 1
+    TOOLS:
+      display-name: "&eІнструменти"
+      icon: DIAMOND_PICKAXE
+      items:
+        - material: NETHERITE_PICKAXE
+          name: "&4Netherite Pickaxe"
+          price: 5000
+          amount: 1
+        - material: DIAMOND_SWORD
+          name: "&bDiamond Sword"
+          price: 500
+          amount: 1
+    ARMOR:
+      display-name: "&7Броня"
+      icon: DIAMOND_CHESTPLATE
+      items:
+        - material: ELYTRA
+          name: "&dElytra"
+          price: 50000
+          amount: 1
+        - material: NETHERITE_CHESTPLATE
+          name: "&4Netherite Chestplate"
+          price: 8000
+          amount: 1
+    SPECIAL:
+      display-name: "&6Спеціальне"
+      icon: NETHER_STAR
+      items:
+        - material: BEACON
+          name: "&eBeacon"
+          price: 10000
+          amount: 1
+        - material: TRIPWIRE_HOOK
+          name: "&6Rare Key"
+          price: 1000
+          amount: 1
+
+# =====================================================
+# MESSAGES
+# =====================================================
+messages:
+  no-permission: "&cУ вас немає прав для цієї команди."
+  player-only: "&cЦю команду може використовувати лише гравець."
+  player-not-found: "&cГравця &e{player} &cне знайдено."
+  balance-header: "&b💎 Uhryniv Points"
+  balance-line: "&7Баланс: &f{balance} UP"
+  balance-hour-line: "&7За останню годину: &f{hour} UP"
+  pay-usage: "&cВикористання: /up pay <player> <amount>"
+  pay-invalid-amount: "&cНевірна сума."
+  pay-not-enough: "&cНедостатньо UP на балансі."
+  pay-success-sender: "&aВи передали &f{amount} UP &aгравцю &f{player}&a."
+  pay-success-receiver: "&aВи отримали &f{amount} UP &aвід &f{player}&a."
+  top-header: "&6&l=== Топ Uhryniv Points ==="
+  top-line: "&e{position}. &f{player} &7- &b{balance} UP"
+  admin-give-success: "&aВидано &f{amount} UP &aгравцю &f{player}&a."
+  admin-take-success: "&aЗабрано &f{amount} UP &aу гравця &f{player}&a."
+  reload-success: "&aКонфігурацію UhrynivCraft перезавантажено."
+  shop-purchase-success: "&aВи придбали &f{item} &aза &f{price} UP&a."
+  shop-not-enough-money: "&cНедостатньо UP для покупки &f{item}&c."
+  shop-inventory-full: "&cВаш інвентар заповнений."

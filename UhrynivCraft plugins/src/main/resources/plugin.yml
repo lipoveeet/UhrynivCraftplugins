@@ -1,0 +1,30 @@
+name: UhrynivCraft
+version: '${project.version}'
+main: com.uhrynivcraft.UhrynivCraft
+api-version: '1.21'
+author: UhrynivCraft Team
+description: Custom economy plugin with Uhryniv Points (UP) currency and anti-farm protection.
+softdepend: [PlaceholderAPI, Vault, LuckPerms, TAB]
+
+commands:
+  up:
+    description: Uhryniv Points main command
+    usage: /up [pay|top|admin|reload]
+    permission: uhrynivcraft.use
+    permission-message: "&cУ вас немає прав для цієї команди."
+  upshop:
+    description: Open the Uhryniv Points shop
+    usage: /upshop
+    permission: uhrynivcraft.shop
+    permission-message: "&cУ вас немає прав для цієї команди."
+
+permissions:
+  uhrynivcraft.use:
+    description: Allows using /up and its subcommands
+    default: true
+  uhrynivcraft.shop:
+    description: Allows using /upshop
+    default: true
+  uhrynivcraft.admin:
+    description: Allows using /up admin and /up reload
+    default: op
