@@ -2,6 +2,7 @@ package com.uhrynivcraft.antifarm;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.plugin.Plugin;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -15,6 +16,10 @@ public class PlacedBlockTracker {
 
     private final Set<String> placedBlocks = Collections.synchronizedSet(new HashSet<>());
 
+    public PlacedBlockTracker(Plugin plugin) {
+        // plugin reference kept for future use (e.g. persistence), not required right now
+    }
+
     private String keyOf(Location loc) {
         return loc.getWorld().getName() + ":" + loc.getBlockX() + ":" + loc.getBlockY() + ":" + loc.getBlockZ();
     }
@@ -23,7 +28,7 @@ public class PlacedBlockTracker {
         placedBlocks.add(keyOf(block.getLocation()));
     }
 
-    public boolean isPlayerPlaced(Block block) {
+    public boolean wasPlacedByPlayer(Block block) {
         return placedBlocks.contains(keyOf(block.getLocation()));
     }
 
