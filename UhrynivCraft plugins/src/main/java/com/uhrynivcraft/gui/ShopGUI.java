@@ -66,9 +66,12 @@ public class ShopGUI {
             for (Map<?, ?> raw : catSection.getMapList("items")) {
                 Material mat = Material.matchMaterial(String.valueOf(raw.get("material")));
                 if (mat == null) continue;
-                String name = String.valueOf(raw.getOrDefault("name", mat.name()));
-                double price = ((Number) raw.getOrDefault("price", 0)).doubleValue();
-                int amount = ((Number) raw.getOrDefault("amount", 1)).intValue();
+                Object nameObj = raw.get("name");
+                Object priceObj = raw.get("price");
+                Object amountObj = raw.get("amount");
+                String name = nameObj != null ? String.valueOf(nameObj) : mat.name();
+                double price = (priceObj instanceof Number) ? ((Number) priceObj).doubleValue() : 0;
+                int amount = (amountObj instanceof Number) ? ((Number) amountObj).intValue() : 1;
                 items.add(new ShopItem(mat, name, price, amount));
             }
             categoryItems.put(catKey, items);
