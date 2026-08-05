@@ -8,6 +8,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "UhrynivCraft plugins"
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -26,4 +29,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: UhrynivCraft-plugin
-          path: target/UhrynivCraft-*.jar
+          path: "UhrynivCraft plugins/target/UhrynivCraft-*.jar"
